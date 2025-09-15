@@ -9,25 +9,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "payment_table")
-public class Payments {
+@Table(name = "Course_enrollment")
+public class CourseEnrollment {
 
-    @Id
-    private int paymentId;
-
-    @Column
+    private int courseId;
     private int studentId;
-
-    @Column
-    private double amount;
-
-    @Column
-    private Date date;
 }

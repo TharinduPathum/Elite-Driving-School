@@ -16,7 +16,7 @@ import lombok.*;
 public class Students {
 
     @Id
-    private String id;
+    private String s_id;
 
     @Column(nullable = false,name = "student_name")
     private String name;

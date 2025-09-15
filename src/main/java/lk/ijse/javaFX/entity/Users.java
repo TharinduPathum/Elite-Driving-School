@@ -16,7 +16,7 @@ import lombok.*;
 public class Users {
 
     @Id
-    private String id;
+    private String u_id;
 
     @Column(nullable = false,name = "user_name")
     private String name;

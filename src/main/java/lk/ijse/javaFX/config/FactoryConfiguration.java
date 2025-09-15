@@ -1,28 +1,42 @@
 package lk.ijse.javaFX.config;
 
+import lk.ijse.javaFX.entity.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 public class FactoryConfiguration {
     private static FactoryConfiguration factoryConfiguration;
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
-        Configuration configuration = new Configuration().configure(); // loads hibernate.cfg.xml
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        configuration.addAnnotatedClass(Courses.class);
+        configuration.addAnnotatedClass(Instructors.class);
+        configuration.addAnnotatedClass(Lessons.class);
+        configuration.addAnnotatedClass(Payments.class);
+        configuration.addAnnotatedClass(Students.class);
+        configuration.addAnnotatedClass(Users.class);
+
+        // create session factory object
+        sessionFactory = configuration.buildSessionFactory();
     }
 
     public static FactoryConfiguration getInstance() {
-        return (factoryConfiguration == null) ?
-                (factoryConfiguration = new FactoryConfiguration()) :
+        return factoryConfiguration == null ?
+                factoryConfiguration = new FactoryConfiguration() :
                 factoryConfiguration;
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
+    public Session getSession() {
+        return sessionFactory.openSession();
+
+    }
+
+    public Session getCurrentSession() {
+
+        return sessionFactory.getCurrentSession();
     }
 }

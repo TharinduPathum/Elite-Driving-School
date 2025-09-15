@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.javaFX.controller.MainPageController">
+   <children>
+      <HBox layoutX="1.0" prefHeight="800.0" prefWidth="1100.0">
+         <children>
+            <HBox prefHeight="800.0" prefWidth="700.0" />
+            <HBox prefHeight="800.0" prefWidth="400.0">
+               <children>
+                  <VBox prefHeight="800.0" prefWidth="400.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <VBox prefHeight="149.0" prefWidth="400.0">
+                           <children>
+                              <Label text="Login as">
+                                 <font>
+                                    <Font name="Agency FB Bold" size="30.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="165.0" top="75.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="91.0" prefWidth="400.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#btnAdmin" prefHeight="50.0" prefWidth="210.0" text="Admin">
+                                 <VBox.margin>
+                                    <Insets left="100.0" top="30.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="90.0" prefWidth="400.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#btnReceptionist" prefHeight="50.0" prefWidth="210.0" text="Receptionist">
+                                 <VBox.margin>
+                                    <Insets left="100.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children></HBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
