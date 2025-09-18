@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ancPane" prefHeight="800.0" prefWidth="1350.0" style="-fx-background-color: #ccf1f3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.javaFX.controller.DashboardController">
+   <children>
+      <VBox layoutY="1.0" prefHeight="800.0" prefWidth="250.0">
+         <children>
+            <VBox prefHeight="225.0" prefWidth="991.0">
+               <children>
+                  <HBox prefHeight="225.0" prefWidth="878.0" style="-fx-background-color: #5dbbea;">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #5dbbea;">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="200.0">
+                                 <image>
+                                    <Image url="@../images/ELITE.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="25.0" top="25.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="600.0" prefWidth="1100.0">
+               <children>
+                  <HBox prefHeight="601.0" prefWidth="1100.0">
+                     <children>
+                        <HBox prefHeight="600.0" prefWidth="250.0">
+                           <children>
+                              <VBox prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #b2bec3;" />
+                           </children></HBox>
+                        <HBox prefHeight="600.0" prefWidth="850.0">
+                           <children>
+                              <VBox prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: #5dbbea;">
+                                 <children>
+                                    <VBox prefHeight="73.0" prefWidth="158.0" />
+                                    <VBox prefHeight="90.0" prefWidth="250.0">
+                                       <children>
+                                          <Button fx:id="studentButton" maxHeight="56.0" maxWidth="289.0" mnemonicParsing="false" onAction="#btnStudent" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #5dbbea;" text="  Students">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <ImageView fitHeight="60.0" fitWidth="60.0">
+                                                   <image>
+                                                      <Image url="@../images/male-student.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="90.0" prefWidth="250.0">
+                                       <children>
+                                          <Button fx:id="instructorButton" maxHeight="53.0" maxWidth="289.0" mnemonicParsing="false" onAction="#btnInstructor" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #5dbbea;" text="  Instructors">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <ImageView fitHeight="60.0" fitWidth="60.0">
+                                                   <image>
+                                                      <Image url="@../images/coach.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="90.0" prefWidth="250.0">
+                                       <children>
+                                          <Button fx:id="courseButton" maxHeight="53.0" maxWidth="289.0" mnemonicParsing="false" onAction="#btnCourse" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #5dbbea;" text="  Courses">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <ImageView fitHeight="60.0" fitWidth="60.0">
+                                                   <image>
+                                                      <Image url="@../images/certificate.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="90.0" prefWidth="250.0">
+                                       <children>
+                                          <Button fx:id="lessonButton" maxHeight="53.0" maxWidth="289.0" mnemonicParsing="false" onAction="#btnLesson" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #5dbbea;" text="  Lessons">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <ImageView fitHeight="60.0" fitWidth="60.0">
+                                                   <image>
+                                                      <Image url="@../images/lesson.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children></HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

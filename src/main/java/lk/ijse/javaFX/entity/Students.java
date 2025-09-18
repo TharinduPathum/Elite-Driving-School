@@ -18,7 +18,7 @@ public class Students {
     @Id
     private String s_id;
 
-    @Column(nullable = false,name = "student_name")
+    @Column(nullable = false,name = "name")
     private String name;
 
     @Column(nullable = false, unique = true)

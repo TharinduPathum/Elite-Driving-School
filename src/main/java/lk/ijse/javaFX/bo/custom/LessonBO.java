@@ -1,4 +1,4 @@
 package lk.ijse.javaFX.bo.custom;
 
-public interface AdminBO {
+public interface LessonBO {
 }

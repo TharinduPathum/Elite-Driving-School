@@ -1,4 +1,4 @@
 package lk.ijse.javaFX.bo.custom.impl;
 
-public class MainBOImpl {
+public class InstructorBOImpl {
 }

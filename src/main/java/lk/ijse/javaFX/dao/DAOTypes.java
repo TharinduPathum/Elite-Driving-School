@@ -1,6 +1,6 @@
-package lk.ijse.javaFX.bo;
+package lk.ijse.javaFX.dao;
 
-public enum BOTypes {
+public enum DAOTypes {
     COURSE,
     INSTRUCTOR,
     LESSON,
