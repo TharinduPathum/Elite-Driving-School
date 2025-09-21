@@ -15,8 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ccf1f3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.javaFX.controller.InstructorPageController">
+<AnchorPane fx:id="ancPane" prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ccf1f3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.javaFX.controller.InstructorPageController">
    <children>
       <HBox prefHeight="800.0" prefWidth="900.0">
          <children>
@@ -55,7 +54,7 @@
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Label fx:id="custidValueLabel" text="I001">
+                                    <Label fx:id="instIdValueLabel" text="I001">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

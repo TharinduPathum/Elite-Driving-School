@@ -18,7 +18,7 @@ public class Users {
     @Id
     private String u_id;
 
-    @Column(nullable = false,name = "user_name")
+    @Column(nullable = false,name = "name")
     private String name;
 
     @Column(nullable = false, unique = true)

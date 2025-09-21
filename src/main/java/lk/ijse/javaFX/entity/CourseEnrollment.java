@@ -17,6 +17,6 @@ import lombok.Setter;
 @Table(name = "Course_enrollment")
 public class CourseEnrollment {
 
-    private int courseId;
-    private int studentId;
+    private String c_id;
+    private String s_id;
 }

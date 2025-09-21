@@ -17,10 +17,10 @@ import java.util.Date;
 public class Lessons {
 
     @Id
-    private int lessonId;
+    private String l_id;
 
     @Column
-    private int instructorId;
+    private String  i_id;
 
     @Column
     private Date date;

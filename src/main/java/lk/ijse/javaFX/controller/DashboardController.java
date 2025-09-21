@@ -30,21 +30,25 @@ public class DashboardController {
 
     @FXML
     void btnCourse(ActionEvent event) {
+        highlightButton(courseButton);
         navigateTo("/view/CoursePage.fxml");
     }
 
     @FXML
     void btnInstructor(ActionEvent event) {
+        highlightButton(instructorButton);
         navigateTo("/view/InstructorPage.fxml");
     }
 
     @FXML
     void btnLesson(ActionEvent event) {
+        highlightButton(lessonButton);
         navigateTo("/view/LessonPage.fxml");
     }
 
     @FXML
     void btnStudent(ActionEvent event) {
+        highlightButton(studentButton);
        navigateTo("/view/StudentPage.fxml");
     }
 
@@ -62,5 +66,19 @@ public class DashboardController {
             new Alert(Alert.AlertType.ERROR, "Page not found..!").show();
             e.printStackTrace();
         }
+    }
+
+    private void highlightButton(Button button) {
+        resetButtonStyles();
+        button.setStyle("-fx-background-color:  #ccf1f3;");
+    }
+
+    private void resetButtonStyles() {
+        String defaultStyle = "-fx-background-color:  #5dbbea;";
+        courseButton.setStyle(defaultStyle);
+        studentButton.setStyle(defaultStyle);
+        instructorButton.setStyle(defaultStyle);
+        lessonButton.setStyle(defaultStyle);
+
     }
 }

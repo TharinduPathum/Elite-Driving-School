@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.javaFX.controller.ReceptionistPageController">
+<AnchorPane fx:id="ancPane" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.javaFX.controller.ReceptionistPageController">
    <children>
       <HBox prefHeight="800.0" prefWidth="1100.0">
          <children>
@@ -26,7 +25,7 @@
                               <Font name="System Bold" size="32.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnCashierLogin" layoutX="92.0" layoutY="320.0" mnemonicParsing="false" onAction="#btnCashierLoginOnAction" prefHeight="47.0" prefWidth="261.0" style="-fx-background-radius: 10; -fx-background-color: #ffc42a;" text="Let's Started" textFill="#273c75">
+                        <Button layoutX="92.0" layoutY="320.0" mnemonicParsing="false" onAction="#btnReceptionistLoginOnAction" prefHeight="47.0" prefWidth="261.0" style="-fx-background-radius: 10; -fx-background-color: #ffc42a;" text="Let's Started" textFill="#273c75">
                            <font>
                               <Font size="22.0" />
                            </font>
@@ -41,17 +40,17 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtCashierUserName" layoutX="177.0" layoutY="127.0" prefHeight="52.0" prefWidth="211.0">
+                        <TextField fx:id="txtRecUserName" layoutX="177.0" layoutY="127.0" prefHeight="52.0" prefWidth="211.0">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <PasswordField fx:id="txtCashierPassword" layoutX="177.0" layoutY="209.0" prefHeight="52.0" prefWidth="211.0">
+                        <PasswordField fx:id="txtRecPassword" layoutX="177.0" layoutY="209.0" prefHeight="52.0" prefWidth="211.0">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </PasswordField>
-                        <ImageView fx:id="cashierLoginBackIcon" fitHeight="52.0" fitWidth="61.0" layoutX="28.0" layoutY="26.0" onMouseClicked="#cashierLoginBackIconOnAction" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="receptionistLoginBackIcon" fitHeight="52.0" fitWidth="61.0" layoutX="28.0" layoutY="26.0" onDragDetected="#btnReceptionistLoginBackOnAction" onMouseClicked="#cashierLoginBackIconOnAction" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../../Downloads/Car-Rental-Management-System-Layered-Architecture-main/Car-Rental-Management-System-Layered-Architecture-main/src/main/resources/assets/images/BackIcon.jpeg" />
                            </image>

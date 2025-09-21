@@ -3,8 +3,10 @@ package lk.ijse.javaFX.controller;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import lk.ijse.javaFX.bo.BOFactory;
 import lk.ijse.javaFX.bo.BOTypes;
 import lk.ijse.javaFX.bo.custom.StudentBO;
@@ -14,7 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class StudentPageController {
+public class StudentPageController implements Initializable {
 
     @FXML
     private TableColumn<StudentsTM, String> colEmail;
@@ -35,7 +37,7 @@ public class StudentPageController {
     private TableView<StudentsTM> studentTable;
 
     @FXML
-    private Label custidValueLabel;
+    private Label stdIdValueLabel;
 
     @FXML
     private TextField emailField;
@@ -51,6 +53,9 @@ public class StudentPageController {
 
     private final StudentBO studentBO = BOFactory.getInstance().getBO(BOTypes.STUDENT);
 
+    @FXML
+    private AnchorPane ancPane;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,44 +68,44 @@ public class StudentPageController {
         // C001
 //        lblId.setText("C001");
         try {
-            loadNextId();
-            loadTableData();
+//            loadNextId();
+//            loadTableData();
         } catch (Exception e) {
             new Alert(
                     Alert.AlertType.ERROR, "Fail to load data..!"
             ).show();
         }
 
-        studentBO.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                custidValueLabel.setText(newSelection.getId());
-                nameField.setText(newSelection.getName());
-                nicField.setText(newSelection.getAddress());
-                emailField.setText(newSelection.getEmail());
-                phoneNoField.setText(newSelection.getPhone());
-            }
-        });
+//        studentBO.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+//            if (newSelection != null) {
+//                stdIdValueLabel.setText(newSelection.getId());
+//                nameField.setText(newSelection.getName());
+//                nicField.setText(newSelection.getAddress());
+//                emailField.setText(newSelection.getEmail());
+//                phoneNoField.setText(newSelection.getPhone());
+//            }
+//        });
 
     }
 
-    private void loadTableData() throws SQLException {
-        studentTable.setItems(FXCollections.observableArrayList(
-                customerBO.getAllCustomer().stream().map(customerDTO ->
-                        new CustomerTM(
-                                customerDTO.getCustomerId(),
-                                customerDTO.getName(),
-                                customerDTO.getAddress(),
-                                customerDTO.getEmail(),
-                                customerDTO.getPhone()
-                        )).toList()
-        ));
-    }
+//    private void loadTableData() throws SQLException {
+//        studentTable.setItems(FXCollections.observableArrayList(
+//                studentBO.getAllCustomer().stream().map(customerDTO ->
+//                        new StudentsTM(
+//                                customerDTO.getCustomerId(),
+//                                customerDTO.getName(),
+//                                customerDTO.getAddress(),
+//                                customerDTO.getEmail(),
+//                                customerDTO.getPhone()
+//                        )).toList()
+//        ));
+//    }
 
 
-    private void loadNextId() throws Exception {
-        String nextId = customerBO.getNextId();
-        custidValueLabel.setText(nextId);
-    }
+//    private void loadNextId() throws Exception {
+//        String nextId = studentBO.getNextId();
+//        stdIdValueLabel.setText(nextId);
+//    }
 
 
     @FXML

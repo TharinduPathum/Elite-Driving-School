@@ -14,6 +14,6 @@ import lombok.*;
 public class LessonEnrollment {
 
 
-    private int lessonId;
-    private int studentId;
+    private String  l_id;
+    private String  s_id;
 }

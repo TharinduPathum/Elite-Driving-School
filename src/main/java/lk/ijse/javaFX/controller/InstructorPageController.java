@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class InstructorPageController {
 
@@ -25,7 +26,7 @@ public class InstructorPageController {
     private TableColumn<?, ?> colPhoneNo;
 
     @FXML
-    private Label custidValueLabel;
+    private Label instIdValueLabel;
 
     @FXML
     private TextField emailField;
@@ -41,6 +42,9 @@ public class InstructorPageController {
 
     @FXML
     private TextField phoneNoField;
+
+    @FXML
+    private AnchorPane ancPane;
 
     @FXML
     void BtnSaveOnAction(ActionEvent event) {

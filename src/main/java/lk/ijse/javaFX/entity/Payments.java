@@ -20,10 +20,10 @@ import java.util.Date;
 public class Payments {
 
     @Id
-    private int paymentId;
+    private String p_id;
 
     @Column
-    private int studentId;
+    private String s_id;
 
     @Column
     private double amount;
