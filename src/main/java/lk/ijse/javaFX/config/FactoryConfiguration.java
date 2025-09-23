@@ -6,14 +6,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class FactoryConfiguration {
-    private static FactoryConfiguration factoryConfiguration;
+    public static FactoryConfiguration factoryConfiguration;
     private final SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
         Configuration configuration = new Configuration();
         configuration.configure();
 
-        configuration.addAnnotatedClass(Courses.class);
+        configuration.addAnnotatedClass(Course.class);
+        configuration.addAnnotatedClass(CourseEnrollment.class);
         configuration.addAnnotatedClass(Instructors.class);
         configuration.addAnnotatedClass(Lessons.class);
         configuration.addAnnotatedClass(Payments.class);

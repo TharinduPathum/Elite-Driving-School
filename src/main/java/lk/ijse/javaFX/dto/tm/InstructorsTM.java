@@ -6,4 +6,6 @@ public class InstructorsTM {
     private String nic;
     private String email;
     private String phone;
+    private String specialization;
+    private String availability;
 }

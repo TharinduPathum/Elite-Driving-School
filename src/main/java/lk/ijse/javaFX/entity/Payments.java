@@ -1,9 +1,6 @@
 package lk.ijse.javaFX.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,18 +13,26 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "payment_table")
+@Table(name = "payment")
 public class Payments {
 
     @Id
+    @Column
     private String p_id;
 
-    @Column
-    private String s_id;
-
-    @Column
-    private double amount;
+    @ManyToOne
+    @JoinColumn(name = "s_id", referencedColumnName = "s_id")
+    private Students student;
 
     @Column
     private Date date;
+
+    @Column(nullable = false)
+    private double amount;
+
+    @Column(nullable = false)
+    private String paymentMethod;
+
+    @Column(nullable = false)
+    private String status;
 }

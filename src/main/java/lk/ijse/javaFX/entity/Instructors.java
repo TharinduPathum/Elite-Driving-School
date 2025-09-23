@@ -1,10 +1,9 @@
 package lk.ijse.javaFX.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -12,10 +11,11 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "instructors_table")
+@Table(name = "instructor")
 public class Instructors {
 
     @Id
+    @Column
     private String i_id;
 
     @Column(nullable = false,name = "name")
@@ -29,4 +29,22 @@ public class Instructors {
 
     @Column(nullable = false, length = 20)
     private String phone;
+
+    @Column(nullable = false)
+    private String specialization;
+
+    @Column(nullable = false)
+    private String availability;
+
+    @OneToMany(
+            mappedBy = "instructor",
+            cascade = CascadeType.ALL
+    )
+    private List<Lessons> lessons;
+
+    @OneToMany(
+            mappedBy = "instructor",
+            cascade = CascadeType.ALL
+    )
+    private List<Course> courses;
 }

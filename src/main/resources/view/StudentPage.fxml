@@ -30,7 +30,7 @@
                                     <Image url="@../images/student%20page.png" />
                                  </image>
                                  <VBox.margin>
-                                    <Insets left="200.0" top="10.0" />
+                                    <Insets left="270.0" top="10.0" />
                                  </VBox.margin>
                               </ImageView>
                            </children>
@@ -279,7 +279,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <TableView fx:id="studentTable" prefHeight="417.0" prefWidth="900.0">
+                        <TableView fx:id="studentTable" prefHeight="414.0" prefWidth="917.0">
                            <columns>
                               <TableColumn fx:id="colId" prefWidth="75.0" text="Student ID" />
                               <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
@@ -300,11 +300,11 @@
                   <VBox prefHeight="800.0" prefWidth="200.0">
                      <children>
                         <VBox prefHeight="65.0" prefWidth="200.0" />
-                        <VBox prefHeight="331.0" prefWidth="200.0">
+                        <VBox prefHeight="245.0" prefWidth="200.0">
                            <children>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#btnGoToProfilesOnAction" prefHeight="230.0" prefWidth="170.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" text="Manage&#10;Student&#10;Profiles" textAlignment="CENTER">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#btnGoToProfilesOnAction" prefHeight="203.0" prefWidth="142.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" text="Manage&#10;Student&#10;Profiles" textAlignment="CENTER">
                                  <VBox.margin>
-                                    <Insets left="5.0" />
+                                    <Insets left="30.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font name="Cambria Bold" size="24.0" />
@@ -328,7 +328,33 @@
                               </Button>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <VBox prefHeight="227.0" prefWidth="200.0">
+                           <children>
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#btnPaymentsOnAction" prefHeight="214.0" prefWidth="142.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" text="Student&#10;Payments" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Cambria Bold" size="24.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="86.0" fitWidth="88.0">
+                                       <image>
+                                          <Image url="@../images/manager.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <VBox.margin>
+                                    <Insets left="30.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children></VBox>
                      </children>
                   </VBox>
                </children></HBox>

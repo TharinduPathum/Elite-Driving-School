@@ -1,10 +1,10 @@
 package lk.ijse.javaFX.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Date;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -12,7 +12,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "students_table")
+@Table(name = "student")
 public class Students {
 
     @Id
@@ -29,4 +29,25 @@ public class Students {
 
     @Column(nullable = false, length = 20)
     private String phone;
+
+    @Column(nullable = false)
+    private Date registrationDate;
+
+    @OneToMany(
+            mappedBy = "student",
+            cascade = CascadeType.ALL
+    )
+    private List<CourseEnrollment> studentCourseDetails;
+
+    @OneToMany(
+            mappedBy = "student",
+            cascade = CascadeType.ALL
+    )
+    private List<Lessons> lessons;
+
+    @OneToMany(
+            mappedBy = "student",
+            cascade = CascadeType.ALL
+    )
+    private List<Payments> payments;
 }

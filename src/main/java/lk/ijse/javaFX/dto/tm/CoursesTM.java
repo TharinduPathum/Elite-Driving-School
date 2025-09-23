@@ -5,4 +5,6 @@ public class CoursesTM {
     private String name;
     private String duration;
     private double fee;
+    private String description;
+    private String i_id;
 }

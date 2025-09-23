@@ -12,24 +12,22 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "users_table")
+@Table(name = "user")
 public class Users {
 
     @Id
+    @Column
     private String u_id;
 
     @Column(nullable = false,name = "name")
-    private String name;
+    private String userName;
 
-    @Column(nullable = false, unique = true)
-    private String nic;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false, length = 20)
-    private String phone;
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String role;
+
+    @Column(nullable = false)
+    private String status;
 }

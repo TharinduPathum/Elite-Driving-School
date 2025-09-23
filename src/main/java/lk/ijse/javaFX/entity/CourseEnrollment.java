@@ -1,13 +1,12 @@
 package lk.ijse.javaFX.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +16,21 @@ import lombok.Setter;
 @Table(name = "Course_enrollment")
 public class CourseEnrollment {
 
-    private String c_id;
-    private String s_id;
+    @Id
+    @Column
+    private String std_course_id;
+
+    @ManyToOne
+    @JoinColumn(name = "s_id", referencedColumnName = "s_id")
+    private Students student;
+
+    @ManyToOne
+    @JoinColumn(name = "c_id", referencedColumnName = "c_id")
+    private Course course;
+
+    @Column
+    private Date enrollmentDate;
+
+    @Column
+    private String status;
 }

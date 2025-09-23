@@ -132,4 +132,10 @@ public class StudentPageController implements Initializable {
     void btnGoToProfilesOnAction(ActionEvent event) {
 
     }
+
+    @FXML
+    void btnPaymentsOnAction(ActionEvent event) {
+
+    }
+
 }

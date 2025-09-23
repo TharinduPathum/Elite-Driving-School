@@ -1,4 +1,6 @@
 package lk.ijse.javaFX.bo.custom;
 
-public interface StudentBO {
+import lk.ijse.javaFX.bo.SuperBO;
+
+public interface StudentBO extends SuperBO {
 }

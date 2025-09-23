@@ -20,9 +20,11 @@ public class BOFactory {
             case COURSE -> (Hello) new CourseBOImpl();
             case INSTRUCTOR -> (Hello)new InstructorBOImpl();
             case LESSON -> (Hello) new LessonBOImpl();
-            case MANAGE_COURSE -> (Hello) new ManageCourseBOImpl();
-            case MANAGE_STUDENT -> (Hello) new ManageStudentBOImpl();
+            case PAYMENT -> (Hello) new PaymentBOImpl();
+            case COURSE_ENROLLMENT -> (Hello) new CourseEnrollmentBOImpl();
             case STUDENT -> (Hello) new StudentBOImpl();
+            case USER ->(Hello) new UserBOImpl();
+            case QUERY -> (Hello) new QueryBOImpl();
 
             default -> throw new IllegalArgumentException("Invalid BO Type: " + boType);
         };

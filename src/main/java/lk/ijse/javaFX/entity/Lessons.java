@@ -1,11 +1,9 @@
 package lk.ijse.javaFX.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Time;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -13,18 +11,34 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "lessons_table")
+@Table(name = "lessons")
 public class Lessons {
 
     @Id
+    @Column
     private String l_id;
 
-    @Column
-    private String  i_id;
+    @ManyToOne
+    @JoinColumn(name = "s_id", referencedColumnName = "s_id")
+    private Students students;
+
+    @ManyToOne
+    @JoinColumn(name = "c_id", referencedColumnName = "c_id")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "i_id", referencedColumnName = "i_id")
+    private Instructors instructors;
 
     @Column
     private Date date;
 
     @Column
-    private String time;
+    private Time startTime;
+
+    @Column
+    private Time endTime;
+
+    @Column
+    private String status;
 }

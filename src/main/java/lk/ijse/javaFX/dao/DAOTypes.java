@@ -2,9 +2,11 @@ package lk.ijse.javaFX.dao;
 
 public enum DAOTypes {
     COURSE,
+    COURSE_ENROLLMENT,
     INSTRUCTOR,
     LESSON,
-    MANAGE_COURSE,
-    MANAGE_STUDENT,
-    STUDENT
+    PAYMENT,
+    STUDENT,
+    USER,
+    QUERY
 }

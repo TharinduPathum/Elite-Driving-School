@@ -1,4 +1,6 @@
 package lk.ijse.javaFX.bo.custom.impl;
 
-public class StudentBOImpl {
+import lk.ijse.javaFX.bo.custom.StudentBO;
+
+public class StudentBOImpl implements StudentBO {
 }
