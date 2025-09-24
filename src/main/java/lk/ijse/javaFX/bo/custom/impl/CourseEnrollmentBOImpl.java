@@ -30,38 +30,37 @@ public class CourseEnrollmentBOImpl implements CourseEnrollmentBO {
         List<CourseEnrollment> courseEnrollments = manageCourseDAO.getAll();
         List<CourseEnrollmentDTO> courseEnrollmentDTOS = new ArrayList<>();
         for (CourseEnrollment courseEnrollment : courseEnrollments) {
-            courseEnrollmentDTOS.add(converter.convert(courseEnrollment, CourseEnrollmentDTO.class));
-        }
+            courseEnrollmentDTOS.add(converter.getStudentCourseDetailsDTO(courseEnrollment));        }
         return courseEnrollmentDTOS;
     }
 
     @Override
     public String getLastStudentCourseDetailId() throws Exception {
-        return ManageCourseDAO.getLastId();
+        return manageCourseDAO.getLastId();
     }
 
     @Override
     public boolean saveStudentCourseDetails(CourseEnrollmentDTO courseEnrollmentDTO) throws Exception {
         Optional<Students> studentExists = studentDAO.findById(courseEnrollmentDTO.getS_id());
         Optional<Course> courseExists = courseDAO.findById(courseEnrollmentDTO.getC_id());
-        Optional<CourseEnrollment> studentCourseDetailsExists = ManageCourseDAO.findById(courseEnrollmentDTO.getStd_course_id());
+        Optional<CourseEnrollment> studentCourseDetailsExists = manageCourseDAO.findById(courseEnrollmentDTO.getStd_course_id());
 
         if (studentCourseDetailsExists.isPresent()) {
             throw new DuplicateException("Student Course Details already exists");
         }
         if (studentExists.isPresent() &&  courseExists.isPresent()) {
-            return ManageCourseDAO.save(converter.getStudentCourseDetailsEntity(courseEnrollmentDTO));
+            return manageCourseDAO.save(converter.getStudentCourseDetailsEntity(courseEnrollmentDTO));
         }
         throw new Exception("Student or Course not found");
     }
 
     @Override
     public boolean updateStudentCourseDetails(CourseEnrollmentDTO courseEnrollmentDTO) throws Exception {
-        Optional<CourseEnrollment>  studentCourseDetailsExists = ManageCourseDAO.findById(courseEnrollmentDTO.getStd_course_id());
+        Optional<CourseEnrollment>  studentCourseDetailsExists = manageCourseDAO.findById(courseEnrollmentDTO.getStd_course_id());
         if (studentCourseDetailsExists.isEmpty()) {
             throw new Exception("Student Course not found");
         }
-        return ManageCourseDAO.update(converter.getStudentCourseDetailsEntity(courseEnrollmentDTO));
+        return manageCourseDAO.update(converter.getStudentCourseDetailsEntity(courseEnrollmentDTO));
     }
 
     @Override

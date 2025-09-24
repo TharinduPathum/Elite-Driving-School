@@ -24,7 +24,7 @@ public class CourseBOImpl implements CourseBO {
         List<Course> courses = courseDAO.getAll();
         List<CoursesDTO> dtos = new ArrayList<>();
         for (Course course : courses) {
-            dtos.add(EntityDTOConverter.convert(course , CoursesDTO.class));
+            dtos.add(entityDTOConverter.getCourseDTO(course));
         }
         return dtos;
     }
@@ -41,7 +41,7 @@ public class CourseBOImpl implements CourseBO {
         if (course.isPresent()) {
             throw new DuplicateException("Course already exists");
         }
-        return courseDAO.save(entityDTOConverter.convert(coursesDTO, Course.class));
+        return courseDAO.save(entityDTOConverter.getCourseEntity(coursesDTO));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CourseBOImpl implements CourseBO {
         if (course.isEmpty()) {
             throw new DuplicateException("Course not Found");
         }
-        return courseDAO.save(entityDTOConverter.convert(coursesDTO, Course.class));
+        return courseDAO.update(entityDTOConverter.getCourseEntity(coursesDTO));
     }
 
     @Override
@@ -71,7 +71,7 @@ public class CourseBOImpl implements CourseBO {
     public Optional<CoursesDTO> findByCourseId(String id) throws Exception {
         Optional<Course> course = courseDAO.findById(id);
         if (course.isPresent()) {
-            return Optional.of(entityDTOConverter.convert(course.get(), CoursesDTO.class));
+            return Optional.of(entityDTOConverter.getCourseDTO(course.get()));
         }
         return Optional.empty();
     }

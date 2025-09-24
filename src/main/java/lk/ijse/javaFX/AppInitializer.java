@@ -12,8 +12,11 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("/view/MainPage.fxml"));
-        stage.setScene(new Scene(parent));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/MainPage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
         stage.show();
+        stage.setMaximized(true);
+
     }
 }
