@@ -3,23 +3,24 @@ package lk.ijse.javaFX.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "course")
 public class Course {
 
     @Id
-    @Column
-    private String  c_id;
+    @Column(name = "courseId", length = 50) // specify name & length for clarity
+    private String courseId;
 
-    @Column(nullable = false,name = "name")
-    private String name;
+    @Column(nullable = false)
+    private String courseName;
 
     @Column(nullable = false)
     private String duration;
@@ -27,20 +28,18 @@ public class Course {
     @Column(nullable = false)
     private double fee;
 
+    @Column(nullable = false, length = 200)
+    private String description;
+
     @ManyToOne
-    @JoinColumn(name ="i_id", referencedColumnName = "i_id")
-    private Instructors instructor;
+    @JoinColumn(name = "instructorId", nullable = false) // remove referencedColumnName, Hibernate maps automatically
+    private Instructor instructor;
 
-    @OneToMany(
-            mappedBy = "course",
-            cascade = CascadeType.ALL
-    )
-    private List<CourseEnrollment> courseEnrollments;
+    @ManyToMany(mappedBy = "courses")
+    private List<Students> student = new ArrayList<>();
 
-    @OneToMany(
-            mappedBy = "course",
-            cascade = CascadeType.ALL
-    )
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Lessons> lessons;
-
 }

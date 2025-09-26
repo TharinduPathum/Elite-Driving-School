@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -12,12 +11,12 @@ import java.util.Date;
 @Data
 
 public class LessonsDTO {
-    private String  l_id;
-    private String  i_id;
-    private String  s_id;
-    private String  c_id;
-    private Date date;
-    private Time startTime;
-    private Time endTime;
-
+    private String lessonId;
+    private String studentId;
+    private String courseId;
+    private String instructorId;
+    private Date lessonDate;
+    private String startTime;
+    private String endTime;
+    private String status;
 }

@@ -1,7 +1,7 @@
 package lk.ijse.javaFX.dao.custom;
 
-import lk.ijse.javaFX.dao.CrudDAO;
-import lk.ijse.javaFX.entity.Payments;
+import lk.ijse.orm_coursework.dao.CrudDAO;
+import lk.ijse.orm_coursework.entity.Payments;
 
 public interface PaymentDAO extends CrudDAO<Payments> {
 }

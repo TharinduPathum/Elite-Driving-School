@@ -11,10 +11,10 @@ import java.util.Date;
 @Data
 
 public class PaymentsDTO {
-    private String p_id;
-    private String s_id;
+    private String paymentId;
+    private Date paymentDate;
     private double amount;
-    private Date date;
     private String paymentMethod;
     private String status;
+    private String studentId;
 }

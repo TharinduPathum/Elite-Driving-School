@@ -1,14 +1,26 @@
 package lk.ijse.javaFX.dto.tm;
 
-import java.sql.Time;
+import javafx.scene.layout.Pane;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+
 public class LessonsTM {
-    private String  l_id;
-    private String  i_id;
-    private String  s_id;
-    private String  c_id;
-    private Date date;
-    private Time startTime;
-    private Time endTime;
+    private String lessonId;
+    private String studentId;
+    private String courseId;
+    private String instructorId;
+    private Date lessonDate;
+    private String startTime;
+    private String endTime;
+    private String status;
+    private Pane action;
+
+
 }

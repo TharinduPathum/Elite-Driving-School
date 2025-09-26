@@ -1,13 +1,13 @@
 package lk.ijse.javaFX.bo.custom.impl;
 
-import lk.ijse.javaFX.bo.custom.CourseBO;
-import lk.ijse.javaFX.bo.exception.DuplicateException;
-import lk.ijse.javaFX.bo.util.EntityDTOConverter;
-import lk.ijse.javaFX.dao.DAOFactory;
-import lk.ijse.javaFX.dao.DAOTypes;
-import lk.ijse.javaFX.dao.custom.CourseDAO;
-import lk.ijse.javaFX.dto.CoursesDTO;
-import lk.ijse.javaFX.entity.Course;
+import lk.ijse.orm_coursework.bo.custom.CourseBO;
+import lk.ijse.orm_coursework.bo.exception.DuplicateException;
+import lk.ijse.orm_coursework.bo.util.EntityDTOConverter;
+import lk.ijse.orm_coursework.dao.DAOFactory;
+import lk.ijse.orm_coursework.dao.DAOTypes;
+import lk.ijse.orm_coursework.dao.custom.CourseDAO;
+import lk.ijse.orm_coursework.dto.CourseDTO;
+import lk.ijse.orm_coursework.entity.Course;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +18,10 @@ public class CourseBOImpl implements CourseBO {
     private final CourseDAO courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOTypes.COURSE);
     private final EntityDTOConverter entityDTOConverter = new EntityDTOConverter();
 
-
     @Override
-    public List<CoursesDTO> getAllCourses() throws Exception {
+    public List<CourseDTO> getAllCourses() throws Exception {
         List<Course> courses = courseDAO.getAll();
-        List<CoursesDTO> dtos = new ArrayList<>();
+        List<CourseDTO> dtos = new ArrayList<>();
         for (Course course : courses) {
             dtos.add(entityDTOConverter.getCourseDTO(course));
         }
@@ -32,25 +31,24 @@ public class CourseBOImpl implements CourseBO {
     @Override
     public String getLastCourseId() throws Exception {
         return courseDAO.getLastId();
-
     }
 
     @Override
-    public boolean saveCourses(CoursesDTO coursesDTO) throws Exception {
-        Optional<Course> course = courseDAO.findById(coursesDTO.getC_id());
+    public boolean saveCourses(CourseDTO t) throws Exception {
+        Optional<Course> course = courseDAO.findById(t.getCourseId());
         if (course.isPresent()) {
             throw new DuplicateException("Course already exists");
         }
-        return courseDAO.save(entityDTOConverter.getCourseEntity(coursesDTO));
+        return courseDAO.save(entityDTOConverter.getCourseEntity(t));
     }
 
     @Override
-    public boolean updateCourses(CoursesDTO coursesDTO) throws Exception {
-        Optional<Course> course = courseDAO.findById(coursesDTO.getC_id());
+    public boolean updateCourses(CourseDTO t) throws Exception {
+        Optional<Course> course = courseDAO.findById(t.getCourseId());
         if (course.isEmpty()) {
             throw new DuplicateException("Course not Found");
         }
-        return courseDAO.update(entityDTOConverter.getCourseEntity(coursesDTO));
+        return courseDAO.update(entityDTOConverter.getCourseEntity(t));
     }
 
     @Override
@@ -68,16 +66,16 @@ public class CourseBOImpl implements CourseBO {
     }
 
     @Override
-    public Optional<CoursesDTO> findByCourseId(String id) throws Exception {
+    public Optional<CourseDTO> findByCourseId(String id) throws Exception {
         Optional<Course> course = courseDAO.findById(id);
         if (course.isPresent()) {
-            return Optional.of(entityDTOConverter.getCourseDTO(course.get()));
+           return Optional.of(entityDTOConverter.getCourseDTO(course.get()));
         }
         return Optional.empty();
     }
 
     @Override
     public String generateNewCourseId() {
-        return "";
+        return courseDAO.generateNewId();
     }
 }

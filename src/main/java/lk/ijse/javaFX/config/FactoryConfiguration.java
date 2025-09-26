@@ -1,43 +1,56 @@
 package lk.ijse.javaFX.config;
 
-import lk.ijse.javaFX.entity.*;
+import lk.ijse.orm_coursework.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Properties;
+
 public class FactoryConfiguration {
-    public static FactoryConfiguration factoryConfiguration;
-    private final SessionFactory sessionFactory;
+    private static FactoryConfiguration factoryConfiguration;
+    private SessionFactory sessionFactory;
 
-    private FactoryConfiguration() {
+
+    private FactoryConfiguration()  {
+        Properties prop = new Properties();
+
+        try {
+            prop.load(
+                    FactoryConfiguration.class.getClassLoader().getResourceAsStream("hibernate.properties")
+            );
+
         Configuration configuration = new Configuration();
-        configuration.configure();
+        configuration.addProperties(prop);
 
+        configuration.addAnnotatedClass(Students.class);
         configuration.addAnnotatedClass(Course.class);
-        configuration.addAnnotatedClass(CourseEnrollment.class);
-        configuration.addAnnotatedClass(Instructors.class);
+        configuration.addAnnotatedClass(Instructor.class);
         configuration.addAnnotatedClass(Lessons.class);
         configuration.addAnnotatedClass(Payments.class);
-        configuration.addAnnotatedClass(Students.class);
-        configuration.addAnnotatedClass(Users.class);
+        configuration.addAnnotatedClass(User.class);
 
-        // create session factory object
         sessionFactory = configuration.buildSessionFactory();
+
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("Error in hibernate properties",e);
+        }
     }
 
-    public static FactoryConfiguration getInstance() {
+    public static FactoryConfiguration getInstance()  {
         return factoryConfiguration == null ?
-                factoryConfiguration = new FactoryConfiguration() :
+                factoryConfiguration = new FactoryConfiguration()
+                :
                 factoryConfiguration;
     }
 
-    public Session getSession() {
-        return sessionFactory.openSession();
-
+    public Session getSession(){
+        Session session = sessionFactory.openSession();
+        return session;
     }
 
-    public Session getCurrentSession() {
-
+    public Session getCurrentSession(){
         return sessionFactory.getCurrentSession();
     }
 }

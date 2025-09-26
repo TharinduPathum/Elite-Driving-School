@@ -1,20 +1,23 @@
 package lk.ijse.javaFX.dao.custom.impl;
 
-import lk.ijse.javaFX.config.FactoryConfiguration;
-import lk.ijse.javaFX.dao.custom.QueryDAO;
+import lk.ijse.orm_coursework.config.FactoryConfiguration;
+import lk.ijse.orm_coursework.dao.custom.QueryDAO;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+
 
 public class QueryDAOImpl implements QueryDAO {
 
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
+
     @Override
-    public int getStdCountForALesson(String lessonId) {
+    public int getStudentCountForLesson(String lessonId) {
         Session session = factoryConfiguration.getSession();
         try {
             // Assuming there is a mapping between Lessons and Students (e.g., a Set<Student> in Lessons entity)
-            String hql = "SELECT COUNT(s.s_id) FROM Students s JOIN s.lessons l WHERE l.l_id = :lessonId";
+            String hql = "SELECT COUNT(s.studentId) FROM Students s JOIN s.lessons l WHERE l.lessonId = :lessonId";
             Query<Long> query = session.createQuery(hql, Long.class);
             query.setParameter("lessonId", lessonId);
             Long count = query.uniqueResult();
@@ -23,4 +26,22 @@ public class QueryDAOImpl implements QueryDAO {
             session.close();
         }
     }
+
+    @Override
+    public double getTotalCourseAmountByStudentId(String studentId) throws Exception {
+        double total = 0.0;
+        try (Session session = factoryConfiguration.getSession()) {
+            Transaction tx = session.beginTransaction();
+            String hql = "SELECT SUM(c.fee) FROM Students s JOIN s.courses c WHERE s.studentId = :studentId";
+            Query<Double> query = session.createQuery(hql, Double.class);
+            query.setParameter("studentId", studentId);
+            Double result = query.uniqueResult();
+            if (result != null) {
+                total = result;
+            }
+            tx.commit();
+        }
+        return total;
+    }
+
 }

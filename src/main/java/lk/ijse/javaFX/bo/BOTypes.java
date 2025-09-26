@@ -2,11 +2,10 @@ package lk.ijse.javaFX.bo;
 
 public enum BOTypes {
     COURSE,
-    COURSE_ENROLLMENT,
     INSTRUCTOR,
-    LESSON,
-    PAYMENT,
+    LESSONS,
+    PAYMENTS,
+    QUERY,
     STUDENT,
-    USER,
-    QUERY
+    USER
 }

@@ -1,43 +1,46 @@
 package lk.ijse.javaFX.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.sql.Time;
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+
 @Entity
 @Table(name = "lessons")
 public class Lessons {
 
     @Id
     @Column
-    private String l_id;
+    private String lessonId;
 
     @ManyToOne
-    @JoinColumn(name = "s_id", referencedColumnName = "s_id")
-    private Students students;
+    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
+    private Students student;
 
     @ManyToOne
-    @JoinColumn(name = "c_id", referencedColumnName = "c_id")
+    @JoinColumn(name = "courseId", referencedColumnName = "courseId")
     private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "i_id", referencedColumnName = "i_id")
-    private Instructors instructors;
+    @JoinColumn(name = "instructorId", referencedColumnName = "instructorId")
+    private Instructor instructor;
 
     @Column
-    private Date date;
+    private Date lessonDate;
 
     @Column
-    private Time startTime;
+    private String startTime;
 
     @Column
-    private Time endTime;
+    private String endTime;
 
     @Column
     private String status;

@@ -1,9 +1,8 @@
 package lk.ijse.javaFX.dao.custom;
 
-import lk.ijse.javaFX.dao.SuperDAO;
+import lk.ijse.orm_coursework.dao.SuperDAO;
 
 public interface QueryDAO extends SuperDAO {
-
-    public int getStdCountForALesson(String lessonId);
-
+    public int getStudentCountForLesson(String lessonId);
+    double getTotalCourseAmountByStudentId(String studentId) throws Exception;
 }

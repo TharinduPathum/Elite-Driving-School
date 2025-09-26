@@ -6,48 +6,63 @@ import lombok.*;
 import java.util.Date;
 import java.util.List;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "student")
 public class Students {
 
     @Id
-    private String s_id;
+    @Column
+    private String studentId;
 
-    @Column(nullable = false,name = "name")
-    private String name;
+    @Column
+    private String firstName;
 
-    @Column(nullable = false, unique = true)
-    private String nic;
+    @Column
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, unique = true)
     private String phone;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
+    private Date dob;
 
     @Column(nullable = false)
     private Date registrationDate;
 
-    @OneToMany(
-            mappedBy = "student",
-            cascade = CascadeType.ALL
+    @ManyToMany(fetch =  FetchType.EAGER)
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "studentId"),
+            inverseJoinColumns = @JoinColumn(name = "courseId")
     )
-    private List<CourseEnrollment> studentCourseDetails;
+    @ToString.Exclude
+    private List<Course> courses ;
+
 
     @OneToMany(
             mappedBy = "student",
             cascade = CascadeType.ALL
     )
+    @ToString.Exclude
     private List<Lessons> lessons;
 
     @OneToMany(
             mappedBy = "student",
             cascade = CascadeType.ALL
     )
+    @ToString.Exclude
     private List<Payments> payments;
 }
+
+

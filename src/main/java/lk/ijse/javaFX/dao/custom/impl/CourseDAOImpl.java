@@ -1,8 +1,8 @@
 package lk.ijse.javaFX.dao.custom.impl;
 
-import lk.ijse.javaFX.config.FactoryConfiguration;
-import lk.ijse.javaFX.dao.custom.CourseDAO;
-import lk.ijse.javaFX.entity.Course;
+import lk.ijse.orm_coursework.config.FactoryConfiguration;
+import lk.ijse.orm_coursework.dao.custom.CourseDAO;
+import lk.ijse.orm_coursework.entity.Course;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -10,17 +10,14 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-
 public class CourseDAOImpl implements CourseDAO {
-
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
-
 
     @Override
     public List<Course> getAll() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<Course> query = session.createQuery("from Course", Course.class);
+            Query<Course> query = session.createQuery("from Course",Course.class);
             List<Course> courseList = query.list();
             return courseList;
         }finally {
@@ -32,7 +29,7 @@ public class CourseDAOImpl implements CourseDAO {
     public String getLastId() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<String> query = session.createQuery("SELECT c.c_id FROM Course c ORDER BY c.c_id DESC", String.class)
+            Query<String> query = session.createQuery("SELECT c.courseId FROM Course c ORDER BY c.courseId DESC", String.class)
                     .setMaxResults(1);
             List<String> courseIdList = query.list();
             if (courseIdList.isEmpty()) {
@@ -41,14 +38,15 @@ public class CourseDAOImpl implements CourseDAO {
             return courseIdList.getFirst();
         } finally {
             session.close();
-        }    }
+        }
+    }
 
     @Override
-    public boolean save(Course courses) throws Exception {
+    public boolean save(Course course) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.persist(courses);
+            session.persist(course);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -60,11 +58,11 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public boolean update(Course courses) throws Exception {
+    public boolean update(Course course) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.merge(courses);
+            session.merge(course);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -102,7 +100,7 @@ public class CourseDAOImpl implements CourseDAO {
     public List<String> getAllIds() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<String> query = session.createQuery("SELECT c.c_id FROM Course c", String.class);
+            Query<String> query = session.createQuery("SELECT c.courseId FROM Course c", String.class);
             return query.list();
         } finally {
             session.close();

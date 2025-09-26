@@ -1,12 +1,13 @@
 package lk.ijse.javaFX.dao.custom.impl;
 
-import lk.ijse.javaFX.config.FactoryConfiguration;
-import lk.ijse.javaFX.dao.custom.UserDAO;
-import lk.ijse.javaFX.entity.Users;
+import lk.ijse.orm_coursework.config.FactoryConfiguration;
+import lk.ijse.orm_coursework.dao.custom.UserDAO;
+import lk.ijse.orm_coursework.entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,40 +16,24 @@ public class UserDAOImpl implements UserDAO {
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
-    public List<Users> getAll() throws Exception {
+    public List<User> getAll() throws SQLException {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<Users> query = session.createQuery("from Users", Users.class);
-            List<Users> list = query.getResultList();
+            Query<User> query = session.createQuery("from User", User.class);
+            List<User> list = query.getResultList();
             return list;
         }finally {
             session.close();
-        }    }
+        }
+    }
 
     @Override
-    public String getLastId() throws Exception {
-        Session session = factoryConfiguration.getSession();
-
-        try {
-            Query<String> query = session.createQuery("SELECT use.id FROM Users use ORDER BY use.id DESC",
-                    String.class).setMaxResults(1);
-            List<String> studentList = query.list();
-            if (studentList.isEmpty()) {
-                return null;
-
-            }
-            return studentList.get(0);
-        }finally {
-            session.close();
-        }    }
-
-    @Override
-    public boolean save(Users users) throws Exception {
+    public boolean save(User user) throws SQLException {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            session.persist(users);
+            session.persist(user);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -61,12 +46,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean update(Users users) throws Exception {
+    public boolean update(User user) throws SQLException {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            session.merge(users);
+            session.merge(user);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -75,16 +60,17 @@ public class UserDAOImpl implements UserDAO {
             return false;
         }finally {
             session.close();
-        }    }
+        }
+    }
 
     @Override
-    public boolean delete(String id) throws Exception {
+    public boolean delete(String id) throws SQLException {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try{
-            Users users = session.get(Users.class,id);
-            if (users != null) {
-                session.remove(users);
+            User user = session.get(User.class,id);
+            if (user != null) {
+                session.remove(user);
                 transaction.commit();
                 return true;
             }
@@ -102,22 +88,44 @@ public class UserDAOImpl implements UserDAO {
     public List<String> getAllIds() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<String> query = session.createQuery("SELECT u.u_id FROM Users u", String.class);
+            Query<String> query = session.createQuery("SELECT u.userId FROM User u", String.class);
             return query.list();
         } finally {
             session.close();
-        }    }
+        }
+    }
 
     @Override
-    public Optional<Users> findById(String id) throws Exception {
+    public String getLastId() throws SQLException {
         Session session = factoryConfiguration.getSession();
 
         try {
-            Users users = session.get(Users.class,id);
-            return Optional.ofNullable(users);
+            Query<String> query = session.createQuery("SELECT use.id FROM User use ORDER BY use.id DESC",
+                    String.class).setMaxResults(1);
+            List<String> studentList = query.list();
+            if (studentList.isEmpty()) {
+                return null;
+
+            }
+            return studentList.get(0);
         }finally {
             session.close();
-        }    }
+        }
+    }
+
+
+
+    @Override
+    public Optional<User> findById(String id) throws SQLException {
+        Session session = factoryConfiguration.getSession();
+
+        try {
+            User user = session.get(User.class,id);
+            return Optional.ofNullable(user);
+        }finally {
+            session.close();
+        }
+    }
 
     @Override
     public String generateNewId() {
@@ -133,5 +141,16 @@ public class UserDAOImpl implements UserDAO {
             int num = Integer.parseInt(lastId.split("-")[1]);
             num++;
             return String.format("U-%03d", num);
-        }    }
+        }
+    }
+    public User getUserByEmail(String email){
+        Session session = factoryConfiguration.getSession();
+        try {
+            Query<User> query = session.createQuery("FROM User u WHERE u.email = :email", User.class);
+            query.setParameter("email", email);
+            return query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
 }

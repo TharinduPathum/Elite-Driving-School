@@ -1,28 +1,28 @@
 package lk.ijse.javaFX.bo.custom.impl;
 
-import lk.ijse.javaFX.bo.custom.StudentBO;
-import lk.ijse.javaFX.bo.exception.DuplicateException;
-import lk.ijse.javaFX.bo.util.EntityDTOConverter;
-import lk.ijse.javaFX.dao.DAOFactory;
-import lk.ijse.javaFX.dao.DAOTypes;
-import lk.ijse.javaFX.dao.custom.StudentDAO;
-import lk.ijse.javaFX.dto.StudentsDTO;
-import lk.ijse.javaFX.entity.Students;
+import lk.ijse.orm_coursework.bo.custom.StudentBO;
+import lk.ijse.orm_coursework.bo.exception.DuplicateException;
+import lk.ijse.orm_coursework.bo.util.EntityDTOConverter;
+import lk.ijse.orm_coursework.dao.DAOFactory;
+import lk.ijse.orm_coursework.dao.DAOTypes;
+import lk.ijse.orm_coursework.dao.custom.StudentDAO;
+import lk.ijse.orm_coursework.dto.StudentDTO;
+import lk.ijse.orm_coursework.entity.Students;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 public class StudentBOImpl implements StudentBO {
 
-    private final StudentDAO studentDAO = DAOFactory.getInstance().getDAO(DAOTypes.STUDENT);
+    private final StudentDAO studentDAO = DAOFactory.getInstance().getDAO(DAOTypes.STUDENTS);
     private final EntityDTOConverter converter = new EntityDTOConverter();
 
-
     @Override
-    public List<StudentsDTO> getAllStudents() throws Exception {
+    public List<StudentDTO> getAllStudents() throws Exception {
         List<Students> studentsList = studentDAO.getAll();
-        List<StudentsDTO> studentsDTOList = new ArrayList<>();
+        List<StudentDTO> studentsDTOList = new ArrayList<>();
         for (Students students : studentsList) {
             studentsDTOList.add(converter.getStudentsDTO(students));
         }
@@ -35,17 +35,18 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
-    public boolean saveStudents(StudentsDTO t) throws Exception {
-        Optional<Students> students = studentDAO.findById(t.getS_id());
+    public boolean saveStudents(StudentDTO t) throws Exception {
+        Optional<Students> students = studentDAO.findById(t.getStudentId());
         if (students.isPresent()) {
             throw new DuplicateException("Student already exists");
         }
         return studentDAO.save(converter.getStudentsEntity(t));
+
     }
 
     @Override
-    public boolean updateStudents(StudentsDTO t) throws Exception {
-        Optional<Students> students = studentDAO.findById(t.getS_id());
+    public boolean updateStudents(StudentDTO t) throws Exception {
+        Optional<Students> students = studentDAO.findById(t.getStudentId());
         if (students.isEmpty()) {
             throw new DuplicateException("Student Not Found");
         }
@@ -67,7 +68,7 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
-    public Optional<StudentsDTO> findByStudentId(String id) throws Exception {
+    public Optional<StudentDTO> findByStudentId(String id) throws Exception {
         Optional<Students> students = studentDAO.findById(id);
         if (students.isEmpty()) {
             return Optional.empty();

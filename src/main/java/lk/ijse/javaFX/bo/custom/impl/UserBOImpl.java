@@ -1,14 +1,14 @@
 package lk.ijse.javaFX.bo.custom.impl;
 
-import lk.ijse.javaFX.bo.custom.UserBO;
-import lk.ijse.javaFX.bo.exception.DuplicateException;
-import lk.ijse.javaFX.bo.exception.NotFoundException;
-import lk.ijse.javaFX.bo.util.EntityDTOConverter;
-import lk.ijse.javaFX.dao.DAOFactory;
-import lk.ijse.javaFX.dao.DAOTypes;
-import lk.ijse.javaFX.dao.custom.UserDAO;
-import lk.ijse.javaFX.dto.UsersDTO;
-import lk.ijse.javaFX.entity.Users;
+import lk.ijse.orm_coursework.bo.custom.UserBO;
+import lk.ijse.orm_coursework.bo.exception.DuplicateException;
+import lk.ijse.orm_coursework.bo.exception.NotFoundException;
+import lk.ijse.orm_coursework.bo.util.EntityDTOConverter;
+import lk.ijse.orm_coursework.dao.DAOFactory;
+import lk.ijse.orm_coursework.dao.DAOTypes;
+import lk.ijse.orm_coursework.dao.custom.UserDAO;
+import lk.ijse.orm_coursework.dto.UserDTO;
+import lk.ijse.orm_coursework.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +19,11 @@ public class UserBOImpl implements UserBO {
     private  final UserDAO userDAO = DAOFactory.getInstance().getDAO(DAOTypes.USER);
     private final EntityDTOConverter converter = new EntityDTOConverter();
 
-
     @Override
-    public List<UsersDTO> getAllUsers() throws Exception {
-        List<Users> userList = userDAO.getAll();
-        List<UsersDTO> userDTOList = new ArrayList<>();
-        for (Users user : userList) {
+    public List<UserDTO> getAllUsers() throws Exception {
+        List<User> userList = userDAO.getAll();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : userList) {
             userDTOList.add(converter.getUserDTO(user));
         }
         return userDTOList;
@@ -33,30 +32,30 @@ public class UserBOImpl implements UserBO {
     @Override
     public String getLastUserId() throws Exception {
         return userDAO.getLastId();
-
     }
 
     @Override
-    public boolean saveUsers(UsersDTO usersDTO) throws Exception {
-        Optional<Users> user = userDAO.findById(usersDTO.getU_id());
+    public boolean saveUsers(UserDTO t) throws Exception {
+        Optional<User> user = userDAO.findById(t.getUserId());
         if (user.isPresent()) {
             throw new DuplicateException("User already exists");
         }
-        return userDAO.save(converter.getUserEntity(usersDTO));
+        return userDAO.save(converter.getUserEntity(t));
+
     }
 
     @Override
-    public boolean updateUsers(UsersDTO usersDTO) throws Exception {
-        Optional<Users> user = userDAO.findById(usersDTO.getU_id());
+    public boolean updateUsers(UserDTO t) throws Exception {
+        Optional<User> user = userDAO.findById(t.getUserId());
         if (user.isEmpty()) {
             throw new NotFoundException("User not found");
         }
-        return userDAO.update(converter.getUserEntity(usersDTO));
+        return userDAO.update(converter.getUserEntity(t));
     }
 
     @Override
     public boolean deleteUsers(String id) throws Exception {
-        Optional<Users> user = userDAO.findById(id);
+        Optional<User> user = userDAO.findById(id);
         if (user.isEmpty()) {
             throw new NotFoundException("User not found");
         }
@@ -69,8 +68,8 @@ public class UserBOImpl implements UserBO {
     }
 
     @Override
-    public Optional<UsersDTO> findByUserId(String id) throws Exception {
-        Optional<Users> user = userDAO.findById(id);
+    public Optional<UserDTO> findByUserId(String id) throws Exception {
+        Optional<User> user = userDAO.findById(id);
         if (user.isPresent()) {
             return Optional.of(converter.getUserDTO(user.get()));
         } else {
@@ -81,5 +80,11 @@ public class UserBOImpl implements UserBO {
     @Override
     public String generateNextUserId() {
         return userDAO.generateNewId();
+    }
+
+    @Override
+    public UserDTO getUserByEmail(String email) {
+        User user = userDAO.getUserByEmail(email);
+        return converter.getUserDTO(user);
     }
 }

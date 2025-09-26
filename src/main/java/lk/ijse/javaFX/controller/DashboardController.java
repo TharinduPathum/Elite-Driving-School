@@ -1,84 +1,121 @@
 package lk.ijse.javaFX.controller;
 
-
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import lk.ijse.orm_coursework.AppInitializer;
+import lk.ijse.orm_coursework.dto.Role;
+import lk.ijse.orm_coursework.util.AuthUtil;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class DashboardController implements Initializable {
 
-public class DashboardController {
+    public AnchorPane ancDashboard;
+    public StackPane stackPaneComponent;
+    public Button btnUser;
+    public Button btnCourse;
+    public Button btnPayments;
+    public Button btnLessons;
+    public Button btnInstructor;
 
-    @FXML
-    private AnchorPane ancPane;
-
-    @FXML
-    private Button courseButton;
-
-    @FXML
-    private Button instructorButton;
-
-    @FXML
-    private Button lessonButton;
-
-    @FXML
-    private Button studentButton;
-
-    @FXML
-    void btnCourse(ActionEvent event) {
-        highlightButton(courseButton);
-        navigateTo("/view/CoursePage.fxml");
-    }
-
-    @FXML
-    void btnInstructor(ActionEvent event) {
-        highlightButton(instructorButton);
-        navigateTo("/view/InstructorPage.fxml");
-    }
-
-    @FXML
-    void btnLesson(ActionEvent event) {
-        highlightButton(lessonButton);
-        navigateTo("/view/LessonPage.fxml");
-    }
-
-    @FXML
-    void btnStudent(ActionEvent event) {
-        highlightButton(studentButton);
-       navigateTo("/view/StudentPage.fxml");
-    }
-
-    private void navigateTo(String path) {
+    void navigateTo(String path) {
         try {
-            ancPane.getChildren().clear();
+            ancDashboard.getChildren().clear();
 
             AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
 
-            anchorPane.prefWidthProperty().bind(ancPane.widthProperty());
-            anchorPane.prefHeightProperty().bind(ancPane.heightProperty());
+            anchorPane.prefWidthProperty().bind(ancDashboard.widthProperty());
+            anchorPane.prefHeightProperty().bind(ancDashboard.heightProperty());
 
-            ancPane.getChildren().add(anchorPane);
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Page not found..!").show();
+            ancDashboard.getChildren().add(anchorPane);
+
+            if (path.equals("/view/DashbordPage2.fxml")) {
+                loadBreadcrumb(null, "Dashboard");
+            }
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             e.printStackTrace();
         }
     }
 
-    private void highlightButton(Button button) {
-        resetButtonStyles();
-        button.setStyle("-fx-background-color:  #ccf1f3;");
+    private void loadBreadcrumb(Runnable run, String title) throws IOException {
+        stackPaneComponent.getChildren().clear();
+        FXMLLoader loader  = new FXMLLoader(DashboardController.class.getResource("/view/Breadcrumb.fxml"));
+        Parent pane  = loader.load();
+
+        BreadcrumbController breadcrumbController = loader.getController();
+        breadcrumbController.init(run, title);
+
+        stackPaneComponent.getChildren().add(pane);
     }
 
-    private void resetButtonStyles() {
-        String defaultStyle = "-fx-background-color:  #5dbbea;";
-        courseButton.setStyle(defaultStyle);
-        studentButton.setStyle(defaultStyle);
-        instructorButton.setStyle(defaultStyle);
-        lessonButton.setStyle(defaultStyle);
+    public void btnStudentOnAction(ActionEvent actionEvent) throws IOException {
+        navigateTo("/view/StudentManagePage.fxml");
+        backDashboard("Student Management");
+    }
 
+    public void btnInstructorOnAction(ActionEvent actionEvent) throws IOException {
+        navigateTo("/view/InstructorManagePage.fxml");
+        backDashboard("Instructor Management");
+    }
+
+    public void btnCourseOnAction(ActionEvent actionEvent) throws IOException {
+        navigateTo("/view/CourseManagePage.fxml");
+        backDashboard("Course Management");
+    }
+
+    private void backDashboard(String title) throws IOException {
+        loadBreadcrumb(()->{navigateTo("/view/DashbordPage2.fxml");} ,title);
+    }
+
+    public void btnUserOnAction(ActionEvent actionEvent) throws IOException {
+        navigateTo("/view/UserManagePage.fxml");
+        backDashboard("User Management");
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        navigateTo("/view/DashbordPage2.fxml");
+        restrictions();
+        try {
+            loadBreadcrumb(null ,"Dashboard");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void btnPaymentOnAction(ActionEvent actionEvent) throws IOException {
+        navigateTo("/view/PaymentsManagePage.fxml");
+        backDashboard("Payment Management");
+    }
+
+    public void btnLessonOnAction(ActionEvent actionEvent) throws IOException {
+        navigateTo("/view/LessonsManagePage.fxml");
+        backDashboard("Lessons Management");
+    }
+
+
+    public void restrictions(){
+        if (AuthUtil.getRole().equalsIgnoreCase(String.valueOf(Role.USER))) {
+            btnCourse.setVisible(false);
+            btnUser.setVisible(false);
+            btnInstructor.setVisible(false);
+        }
+    }
+
+
+    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
+        AuthUtil.clear();
+        AppInitializer.navigateLogin();
     }
 }

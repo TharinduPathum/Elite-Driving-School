@@ -12,20 +12,21 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+
 @Entity
-@Table(name = "payment")
+@Table(name = "payments")
 public class Payments {
 
     @Id
     @Column
-    private String p_id;
+    private String paymentId;
 
     @ManyToOne
-    @JoinColumn(name = "s_id", referencedColumnName = "s_id")
+    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
     private Students student;
 
     @Column
-    private Date date;
+    private Date paymentDate;
 
     @Column(nullable = false)
     private double amount;
